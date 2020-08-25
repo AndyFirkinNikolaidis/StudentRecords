@@ -22,8 +22,6 @@
 
 Visual Studio/VS Code can be downloaded [**here**](https://visualstudio.microsoft.com/downloads/).
 
-Repo link containing Visual Studio Solution and json files:
-
 **Scoring**
 
 Each criterion scores 0-3 depending on level of quality and compliance.
