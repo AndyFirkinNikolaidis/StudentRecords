@@ -24,7 +24,7 @@ Visual Studio/VS Code can be downloaded [**here**](https://visualstudio.microsof
 
 **Scoring**
 
-Each criterion scores 0-3 depending on level of quality and compliance.
+Each criterion scores 0-3 depending on level of quality and compliance. 
 
 _Essential Criteria_
 
