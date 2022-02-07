@@ -2,13 +2,13 @@
 
 **The following technical assessment will help us to understand your suitability for the position and will used as part of the overall assessment including the interview.**
 
-**Set date: Monday 25th August 2020**
+**Set date: TBC**
 
-**Deadline: Monday 31st August 2020 @ 23:59hrs**
+**Deadline: TBC**
 
 **Method of Submission: See original instructions for method of submission**
 
-**Create a Web API and ASP.NET application using .NET Core 3.1**
+**Create a Web API and ASP.NET application using .NET Core 3.1 or later**
 
 - Using the Solution and Project template provided plus sample data, create a simple web app that utilitises a Web API backend for retrieving, creating and updating academic records.
 - The solution should enable adding and editing of student records plus enrolling them onto the provided course list.
@@ -30,10 +30,10 @@ _Essential Criteria_
 
 1. Applied use of SOLID principles.
 2. Well-structured .NET solution conforming to MVC and Web API patterns
-3. Solution compiles
+3. Inclusion of unit tests.
 
 _Desirable Criteria_
 
 1. Code conforms to recognisable best practice such as consistent use of casing and naming conventions.
-2. Solution executes and functions according to specification above.
-3. Inclusion of unit tests.
+2. Modern, accessible UI/UX
+3. Solution executes and functions according to specification above.
