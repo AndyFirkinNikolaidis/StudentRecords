@@ -15,7 +15,7 @@
 - Improvements to unit testing
 - I have had to make some assumtions about some properties of the objects (Course assignment details etc)
 - Validation of the models in blazor needs some work
-- Removal of course assigments was not in the scope of the requirements but would be useful
+- Deletion of course assigments/students was not in the scope of the requirements but would be useful
 
 
 Please let me know if there are any difficultioes running the project
