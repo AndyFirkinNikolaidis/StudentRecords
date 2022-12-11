@@ -1,0 +1,146 @@
+﻿
+@page "/StudentDetail/{id:int}"
+@using StudentRecords.Shared.Models;
+@inject HttpClient Http;
+
+<PageTitle>Student list</PageTitle>
+
+<h1>@student.DisplayName</h1>
+
+<table class="table table-bordered">
+
+    <tbody>
+        <tr>
+            <th scope="row">
+                Student Id
+            </th>
+            <td>
+                @student.StudentId
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                First name
+            </th>
+            <td>
+                @student.FirstName
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                Last name
+            </th>
+            <td>
+                @student.LastName
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                Known as
+            </th>
+            <td>
+                @student.KnownAs
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                Display name
+            </th>
+            <td>
+                @student.DisplayName
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                Date of birth
+            </th>
+            <td>
+                @student.DateOfBirth.ToString("dd/MM/yyyy")
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                Gender
+            </th>
+            <td>
+                @if (string.IsNullOrEmpty(student.Gender))
+                {
+                    <span>Not provided</span>
+                }
+                else if (student.Gender == "M")
+                {
+                    <span>Male</span>
+                }
+                else
+                {
+                    <span>Female</span>
+                }
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                University Email
+            </th>
+            <td>
+                @student.UniversityEmail
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                Network Id
+            </th>
+            <td>
+                @student.NetworkId
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                Home or overseas
+            </th>
+            <td>
+                @if (student.HomeOrOverseas == "H")
+                {
+                    <span>Home</span>
+                }
+                else
+                {
+                    <span>Overseas</span>
+                }
+            </td>
+        </tr>
+
+
+    </tbody>
+</table>
+<a class="btn btn-primary mb-3" href="/StudentEdit/@student.StudentId" role="button">Edit student</a>
+
+<h2>Courses</h2>
+@foreach(var course in student.CourseEnrolment)
+{
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th scope="row">
+                    Course
+                </th>
+                <td>@course.Course.CourseName - @course.Course.CourseCode</td>
+            </tr>
+
+        </tbody>
+    </table>
+}
+<a class="btn btn-primary" href="/AssignCourse/@student.StudentId" role="button">Edit courses</a>
+
+
+@code{
+    [Parameter]
+    public int id { get; set; }
+
+    private Student student = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        student = await Http.GetFromJsonAsync<Student>($"/api/Students/GetStudent/{id}");
+
+    }
+}

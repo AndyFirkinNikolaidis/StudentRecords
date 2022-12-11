@@ -1,0 +1,134 @@
+﻿
+@page "/StudentEdit/{id:int}"
+@page "/StudentEdit/"
+@using Newtonsoft.Json;
+@using StudentRecords.Shared.Models;
+@using System.Text;
+@inject HttpClient Http;
+@inject NavigationManager NavManager
+
+<PageTitle>Student list</PageTitle>
+
+@if(id != null)
+{
+    <h1>@student.DisplayName</h1>
+}
+else
+{
+    <h1>Add student</h1>
+}
+
+<div class="row">
+    <div class="col-6">
+
+        <EditForm Model="@student" OnValidSubmit="@HandleValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="mb-3">
+                <label for="FirstName" class="form-label"> First name</label>
+                <InputText id="FirstName" class="form-control" @bind-Value="student.FirstName" />
+            </div>
+            <div class="mb-3">
+                <label for="LastName" class="form-label">Last name</label>
+                <InputText id="LastName" class="form-control" @bind-Value="student.LastName" />
+            </div>
+            <div class="mb-3">
+                <label for="DisplayName" class="form-label">Display name</label>
+                <InputText id="DisplayName" class="form-control" @bind-Value="student.DisplayName" />
+            </div>
+            <div class="mb-3">
+                <label for="KnownAs" class="form-label">Known as</label>
+                <InputText id="KnownAs" class="form-control" @bind-Value="student.KnownAs" />
+            </div>
+
+            @*<div class="mb-3">
+                <label for="NetworkId" class="form-label">Network Id</label>
+                <InputText id="NetworkId" class="form-control" @bind-Value="student.NetworkId" />
+            </div>*@
+
+            <div class="mb-3">
+                <label for="UniversityEmail" class="form-label">University email</label>
+                <InputText id="UniversityEmail" class="form-control" @bind-Value="student.UniversityEmail" />
+            </div>
+
+            <div class="mb-3">
+                <label for="DateOfBirth" class="form-label">Date of birth</label>
+                <InputDate id="DateOfBirth" class="form-control" @bind-Value="student.DateOfBirth" />
+            </div>
+
+            <div class="mb-3">
+                <label for="Gender" class="form-label">Gender</label>
+                <InputSelect id="Gender" class="form-select" aria-label="Gender select" @bind-Value="student.Gender">
+                    <option value="">Not Provided</option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                </InputSelect>
+            </div>
+
+            <div class="mb-3">
+                <label for="HomeOrOverseas" class="form-label">Home or overseas</label>
+                <InputSelect id="HomeOrOverseas" class="form-select" aria-label="Home or overseas select" @bind-Value="student.HomeOrOverseas">
+                    <option value="">-Select-</option>
+                    <option value="H">Home</option>
+                    <option value="O">Overseas</option>
+                </InputSelect>
+            </div>
+
+
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </EditForm>
+    </div>
+</div>
+
+
+
+
+
+@code{
+    [Parameter]
+    public int? id { get; set; }
+
+    private Student student = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if(id != null)
+        {
+            student = await Http.GetFromJsonAsync<Student>($"/api/Students/GetStudent/{id}");
+        }
+
+    }
+
+    private void HandleValidSubmit()
+    {
+
+        if(id == null)
+        {
+            AddNewStudent();
+            NavManager.NavigateTo("/", forceLoad: true);
+        }
+        else
+        {
+            UpdateStudent();
+            NavManager.NavigateTo($"/StudentDetail/{id}", forceLoad: true);
+        }
+
+    }
+
+    private async Task AddNewStudent()
+    {
+        
+
+        var success = await Http.PostAsJsonAsync<Student>("api/Students/CreateStudent", student);
+
+    }
+    private async Task UpdateStudent()
+    {
+        //set network id
+        student.NetworkId = $"S{id}";
+
+        var success = await Http.PostAsJsonAsync<Student>("api/Students/UpdateStudent", student);
+
+    }
+}

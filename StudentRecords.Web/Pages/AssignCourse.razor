@@ -1,0 +1,233 @@
+﻿@page "/AssignCourse/{id:int}"
+@using StudentRecords.Shared.Models;
+@inject HttpClient Http;
+@inject NavigationManager NavManager
+
+<PageTitle>Course enrolement</PageTitle>
+
+<h1>@student.DisplayName</h1>
+
+<h2>New enrolement</h2>
+<div class="row">
+    <div class="col-6">
+        <EditForm Model="@enrolement" OnValidSubmit="@HandleValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="mb-3">
+                <label for="Course" class="form-label">Course</label>
+                <InputSelect id="Course" class="form-select" aria-label="Gender select" @bind-Value="enrolement.Course.CourseCode">
+                    @foreach (var course in courses)
+                    {
+                        <option value="@course.CourseCode">@course.CourseName - @course.CourseCode</option>
+                    }
+                </InputSelect>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="AcademicYear" class="form-label">Academic year</label>
+                <InputSelect id="AcademicYear" class="form-select" aria-label="Gender select" @bind-Value="enrolement.AcademicYear">
+                    <option value="2020/1">2020/1</option>
+                    <option value="2020/2">2020/2</option>
+                    <option value="2021/1">2021/1</option>
+                    <option value="2021/2">2021/2</option>
+                    <option value="2022/1">2022/1</option>
+                    <option value="2022/2">2022/2</option>
+                    <option value="2023/1">2023/1</option>
+                    <option value="2023/2">2023/2</option>
+                </InputSelect>
+            </div>
+
+            <div class="mb-3">
+                <label for="EnrolmentStatus" class="form-label">Enrolment status</label>
+                <InputSelect id="EnrolmentStatus" class="form-select" aria-label="Gender select" @bind-Value="enrolement.EnrolmentStatus">
+                    <option value="">-Select-</option>
+                    <option value="E">E</option>
+                    <option value="P">P</option>
+                </InputSelect>
+            </div>
+
+            <div class="mb-3">
+                <label for="ModeOfAttendance" class="form-label">Mode of attendance</label>
+                <InputSelect id="ModeOfAttendance" class="form-select" aria-label="Gender select" @bind-Value="enrolement.ModeOfAttendance">
+                    <option value="">-Select-</option>
+                    <option value="FULL TIME">Full time</option>
+                    <option value="PART TIME">Part time</option>
+                </InputSelect>
+            </div>
+
+            <div class="mb-3">
+                <label for="Occurrence" class="form-label">Occurrence</label>
+                <InputSelect id="Occurrence" class="form-select" aria-label="Gender select" @bind-Value="enrolement.Occurrence">
+                    <option value="">-Select-</option>
+                    <option value="JAN">JAN</option>
+                    <option value="SEP">SEP</option>
+                </InputSelect>
+            </div>
+
+            <div class="mb-3">
+                <label for="YearOfStudy" class="form-label">Year of study</label>
+                <InputSelect id="YearOfStudy" class="form-select" aria-label="Gender select" @bind-Value="enrolement.YearOfStudy">
+                    <option value="">-Select-</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="2">3</option>
+                </InputSelect>
+            </div>
+
+            <div class="mb-3">
+                <label for="CourseEntryDate" class="form-label">Course entry date</label>
+                <InputDate id="CourseEntryDate" class="form-control" @bind-Value="enrolement.CourseEntryDate" />
+            </div>
+
+            <div class="mb-3">
+                <label for="ExpectedEndDate" class="form-label">Expected end date</label>
+                <InputDate id="ExpectedEndDate" class="form-control" @bind-Value="enrolement.ExpectedEndDate" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </EditForm>
+    </div>
+</div>
+
+
+<h2>Enrolled courses</h2>
+@foreach (var course in student.CourseEnrolment)
+{
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th scope="row">
+                    Course
+                </th>
+                <td>@course.Course.CourseName - @course.Course.CourseCode</td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    EnrolmentId
+                </th>
+                <td>@course.EnrolmentId</td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    Academic year
+                </th>
+                <td>@course.AcademicYear</td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    Year of study
+                </th>
+                <td>@course.YearOfStudy</td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    Occurrence
+                </th>
+                <td>@course.Occurrence</td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    Mode of attendance
+                </th>
+                <td>@course.ModeOfAttendance</td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    Enrolment status
+                </th>
+                <td>@course.EnrolmentStatus</td>
+            </tr>
+
+
+            <tr>
+                <th scope="row">
+                    Course entry date
+                </th>
+                <td>@course.CourseEntryDate.ToString("dd/MM/yyyy")</td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    Expected end date
+                </th>
+                <td>@course.ExpectedEndDate.ToString("dd/MM/yyyy")</td>
+            </tr>
+
+
+
+        </tbody>
+    </table>
+}
+
+
+
+
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+
+    public CourseEnrolment enrolement { get; set; } = new();
+
+    private Student student = new();
+
+    private List<Course> courses = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetStudent();
+
+        await GetCourses();
+    }
+
+    private async Task GetStudent()
+    {
+        student = await Http.GetFromJsonAsync<Student>($"/api/Students/GetStudent/{id}");
+    }
+
+    private async Task GetCourses()
+    {
+        courses = await Http.GetFromJsonAsync<List<Course>>($"/api/Courses");
+    }
+
+    private void HandleValidSubmit()
+    {
+        //Generate enrolment id
+        var enrolementIndex = GetEnrolmentId();
+        enrolement.EnrolmentId = $"{id}/{enrolementIndex}";
+
+        //Set full course sub object
+        enrolement.Course = courses.First(x => x.CourseCode == enrolement.Course.CourseCode);
+
+        //Add new enrolement to student
+        student.CourseEnrolment.Add(enrolement);
+
+        UpdateStudent();
+
+        NavManager.NavigateTo($"/StudentDetail/{id}", forceLoad: true);
+
+    }
+
+    private async Task UpdateStudent()
+    {
+
+        var success = await Http.PostAsJsonAsync<Student>("api/Students/UpdateStudent", student);
+
+    }
+
+    private int GetEnrolmentId()
+    {
+        var highestId = 1;
+        foreach(var course in student.CourseEnrolment)
+        {
+            int index = course.EnrolmentId.IndexOf("/") + 1;
+            var courseIndex = int.Parse(course.EnrolmentId.Substring(index));
+            if (courseIndex > highestId)
+            {
+                highestId = courseIndex;
+            }
+
+        }
+        return highestId;
+    }
+}

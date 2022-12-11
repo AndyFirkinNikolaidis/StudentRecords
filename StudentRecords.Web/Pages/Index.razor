@@ -1,0 +1,48 @@
+﻿@page "/"
+@using StudentRecords.Shared.Models;
+@inject HttpClient Http;
+
+<PageTitle>Student list</PageTitle>
+
+<h1>Student list</h1>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">First name</th>
+            <th scope="col">Last name</th>
+            <th scope="col">Known as</th>
+            <th scope="col">Email</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in students)
+        {
+             <tr>
+                <td>@student.FirstName</td>
+                <td>@student.LastName</td>
+                <td>@student.KnownAs</td>
+                <td>@student.UniversityEmail</td>
+                <td><a class="btn btn-primary" href="/StudentDetail/@student.StudentId" role="button">Detail</a></td>
+            </tr>
+        }
+       
+
+    </tbody>
+</table>
+
+
+
+
+@code{
+    private List<Student> students = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        students = await Http.GetFromJsonAsync<List<Student>>("/api/Students/GetStudents");
+
+    }
+
+
+}
