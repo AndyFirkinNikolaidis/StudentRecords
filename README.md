@@ -1,39 +1,21 @@
 # Developer Technical Assessment
 
-**The following technical assessment will help us to understand your suitability for the position and will used as part of the overall assessment including the interview.**
 
-**Set date: TBC**
+** Andreas Nikolaidis submission**
 
-**Deadline: TBC**
+** Project contents**
 
-**Method of Submission: See original instructions for method of submission**
+- Shared class library
+- Blazor hosted web project for a front-end management of student records
+- Web Api project to read and write from json files (json files moved to this project for ease of access - I hope this is OK)
+- A unit test project (I am still new to unit testing and eager to develop these skills so I appreciate they may not follow best practice)
 
-**Create a Web API and ASP.NET application using .NET Core 3.1 or later**
+** Improvements that should be made in production or if I had more time **
+- Refactoring of some of the logic around Ids of course assignments and student Id
+- Improvements to unit testing
+- I have had to make some assumtions about some properties of the objects (Course assignment details etc)
+- Validation of the models in blazor needs some work
+- Removal of course assigments was not in the scope of the requirements but would be useful
 
-- Using the Solution and Project template provided plus sample data, create a simple web app that utilitises a Web API backend for retrieving, creating and updating academic records.
-- The solution should enable adding and editing of student records plus enrolling them onto the provided course list.
-- The pack includes Students.json and Courses.json on which to implement a backend and frontend.
-- Build your solution according to SOLID principles.
-- You may use any frontend technology on top of the ASP.NET web app such as MVC/Razor, React, Angular, Vue.JS, etc.
-- Please ensure your completed solution is a self-contained zip file of the solution, project and data files. Therefore, consider persisting changes to the JSON files only - avoid a database.
-- Unit tests will count towards scoring.
-- For the purposes of this assessment, you do no need to worry about authentication (allow anonymous access) or concurrency (of writing to the data repository).
-- Your completed solution can be zipped and emailed as an attachment or a link to a repo provided in email.
 
-Visual Studio/VS Code can be downloaded [**here**](https://visualstudio.microsoft.com/downloads/).
-
-**Scoring**
-
-Each criterion scores 0-3 depending on level of quality and compliance. 
-
-_Essential Criteria_
-
-1. Applied use of SOLID principles.
-2. Well-structured .NET solution conforming to MVC and Web API patterns
-3. Inclusion of unit tests.
-
-_Desirable Criteria_
-
-1. Code conforms to recognisable best practice such as consistent use of casing and naming conventions.
-2. Modern, accessible UI/UX
-3. Solution executes and functions according to specification above.
+Please let me know if there are any difficultioes running the project
