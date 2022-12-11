@@ -1,9 +1,9 @@
 # Developer Technical Assessment
 
 
-** Andreas Nikolaidis submission**
+**Andreas Nikolaidis submission**
 
-** Project contents**
+**Project contents**
 
 - Shared class library
 - Blazor hosted web project for a front-end management of student records
