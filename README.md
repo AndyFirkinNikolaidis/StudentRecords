@@ -19,6 +19,7 @@
 - Validation of the models in blazor needs some work
 - Deletion of course assigments/students was not in the scope of the requirements but would be useful
 - I would improve the logic around adding duplicate courses but this could be desired behaviour
+- Styling/formatting improvements
 
 
 Please let me know if there are any difficulties running the project, or if you have any questions
