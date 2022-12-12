@@ -1,0 +1,30 @@
+[
+  {
+    "StudentId": 77777703,
+    "FirstName": "Test",
+    "LastName": "Test 03",
+    "KnownAs": "Test",
+    "DisplayName": "Test 03 Test 03",
+    "DateOfBirth": "1989-03-07T00:00:00",
+    "Gender": null,
+    "UniversityEmail": "Test.Test6@mail.bcu.ac.uk",
+    "NetworkId": "S77777703",
+    "HomeOrOverseas": "H",
+    "CourseEnrolment": [
+      {
+        "EnrolmentId": "77777703/2",
+        "AcademicYear": "2020/1",
+        "YearOfStudy": 1,
+        "Occurrence": "SEP",
+        "ModeOfAttendance": "FULL TIME",
+        "EnrolmentStatus": "E",
+        "CourseEntryDate": "2020-02-12T00:00:00",
+        "ExpectedEndDate": "0001-01-01T00:00:00",
+        "Course": {
+          "CourseCode": "UP0000",
+          "CourseName": "Used for testing"
+        }
+      }
+    ]
+  }
+]

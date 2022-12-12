@@ -17,39 +17,37 @@ namespace StudentRecords.WebApi.Controllers
         
         [HttpGet]
         [Route("api/Students/GetStudents")]
-        public  List<Student> GetStudents(int count = 100, int pageSize = 100, int page = 1)
+        public async Task<List<Student>> GetStudents(int count = 100, int pageSize = 100, int page = 1)
         {
-            return  _studentDataService.GetStudents(count, pageSize, page).Result;
+            return await _studentDataService.GetStudents(count, pageSize, page);
         }
 
         
         [HttpGet]
         [Route("api/Students/GetStudent/{id}")]
-        public Student GetStudent(int id)
+        public async Task<Student> GetStudent(int id)
         {
-            return _studentDataService.GetStudent(id).Result;
+            return await _studentDataService.GetStudent(id);
         }
 
         
         [HttpPost]
         [Route("api/Students/CreateStudent")]
-        public void CreateStudent([FromBody] Student student)
+        public async Task<bool> CreateStudent([FromBody] Student student)
         {
-            _studentDataService.CreateStudent(student);
+            var result = await _studentDataService.CreateStudent(student);
+
+            return result;
         }
 
         [HttpPost]
         [Route("api/Students/UpdateStudent")]
-        public void UpdateStudent([FromBody] Student student)
+        public async Task<bool> UpdateStudent([FromBody] Student student)
         {
-            _studentDataService.UpdateStudent(student);
+            var result = await _studentDataService.UpdateStudent(student);
+
+            return result;
         }
 
-        [HttpPost]
-        [Route("api/Students/DeleteStudent")]
-        public void DeleteStudent(int id)
-        {
-            _studentDataService.DeleteStudent(id);
-        }
     }
 }

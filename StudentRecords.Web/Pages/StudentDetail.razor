@@ -112,7 +112,13 @@
 
     </tbody>
 </table>
-<a class="btn btn-primary mb-3" href="/StudentEdit/@student.StudentId" role="button">Edit student</a>
+<div class="row">
+    <div class="col-12 mb-3">
+        <a class="btn btn-primary " href="/StudentEdit/@student.StudentId" role="button">Edit student</a>
+
+    </div>
+</div>
+
 
 <h2>Courses</h2>
 @foreach(var course in student.CourseEnrolment)

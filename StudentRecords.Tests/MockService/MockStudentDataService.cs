@@ -14,27 +14,72 @@ using static System.Net.Mime.MediaTypeNames;
 namespace StudentRecords.Shared.Services
 {
     //Student data service to read write to the json file
-    public class StudentDataService : IStudentDataService
+    public class MockStudentDataService : IStudentDataService
     {
-        public IConfiguration _configuration;
+        List<Student> Students { get; set; }
+        List<Course> Courses { get; set; }
 
-        public string StudentPath;
 
-        public string CoursesPath;
+        public MockStudentDataService() {
+            Courses = new List<Course>()
+            {
+                new Course()
+                {
 
-        public StudentDataService(IConfiguration configuration) {
+                    CourseCode = "CP0007",
+                    CourseName = "Certificate of Attendance in Subject Knowledge Enhancement in Mathematics"
+                },
+               new Course()
+               {
 
-            _configuration = configuration;
-            StudentPath = _configuration["StudentJsonPath"];
-            CoursesPath = _configuration["CourseJsonPath"];
+                   CourseCode = "CP0012N",
+                   CourseName = "Medical Ultrasound Modules (PT)"
+               },
+               new Course()
+               {
+
+                   CourseCode = "CP0039",
+                   CourseName = "Preparation for Mentors (PT)"
+               }
+            };
+
+            Students = new List<Student>() {
+                new Student()
+                {
+                    StudentId = 1,
+                    FirstName= "Test",
+                    LastName= "Test 03",
+                    KnownAs = "Test",
+                    DisplayName = "Test 03 Test 03",
+                    DateOfBirth= DateTime.Parse("1989-03-07T00:00:00"),
+                    Gender = null,
+                    UniversityEmail = "Test.Test6@mail.bcu.ac.uk",
+                    NetworkId = "S77777703",
+                    HomeOrOverseas = "H",
+                    CourseEnrolment = new List<CourseEnrolment>()
+                    {
+                        new CourseEnrolment()
+                        {
+                            EnrolmentId = "77777703/2",
+                            AcademicYear =  "2020/1",
+                            YearOfStudy = 1,
+                            Occurrence= "SEP",
+                            ModeOfAttendance= "FULL TIME",
+                            EnrolmentStatus = "E",
+                            CourseEntryDate = DateTime.Parse("2020-03-07T00:00:00"),
+                            ExpectedEndDate = DateTime.Parse("2021-03-07T00:00:00"),
+                            Course = new Course()
+                            {
+                                CourseCode = "UP0000",
+                                CourseName = "Used for testing"
+                            }
         
-        }
+                        }
 
-        public StudentDataService(string studentPath, string coursesPath)
-        {
-
-            StudentPath = studentPath;
-            CoursesPath = coursesPath;
+                    }
+                }
+            
+            };
 
         }
 
@@ -139,55 +184,23 @@ namespace StudentRecords.Shared.Services
 
         async Task<List<Student>> ReadStudents()
         {
-            var students = new List<Student>();
-
-            //read students from file
-            using (StreamReader r = new StreamReader(StudentPath))
-            {
-                string json = r.ReadToEnd();
-                students = JsonConvert.DeserializeObject<List<Student>>(json);
-                return students;
-            }
+            return Students;
 
 
         }
 
         async Task<bool> WriteStudents(List<Student> students)
         {
-            try
-            {
-                using (StreamWriter file = File.CreateText(StudentPath))
-                {
-                    JsonSerializer serializer = new JsonSerializer();
+            Students = students;
 
-                    serializer.Serialize(file, students);
-
-                    return true;
-                }
-                
-            }
-            catch (Exception ex)
-            {
-
-                //Log the exception somewhere
-
-
-                return false;
-            }
-            
-
+            return true;
         }
 
         async Task<List<Course>> ReadCourses()
         {
-            var courses = new List<Course>();
+            return Courses;
 
-            using (StreamReader r = new StreamReader(CoursesPath))
-            {
-                string json = r.ReadToEnd();
-                courses = JsonConvert.DeserializeObject<List<Course>>(json);
-                return courses;
-            }
+            
         }
     }
 }

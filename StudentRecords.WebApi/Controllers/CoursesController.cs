@@ -16,7 +16,7 @@ namespace StudentRecords.WebApi.Controllers
 
         // GET: api/<CoursesController>
         [HttpGet]
-        public  List<Course> Get(int count = 100, int pageSize = 100, int page = 1)
+        public async Task<List<Course>> Get(int count = 100, int pageSize = 100, int page = 1)
         {
             return  _studentDataService.GetCourses(count, pageSize, page).Result;
         }
