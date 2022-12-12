@@ -11,6 +11,7 @@ using StudentRecords.Shared.Services;
 
 namespace StudentRecords.Tests.WebApi
 {
+    //Course controller test methods
     [TestClass]
     public class CourseControllerTest
     {

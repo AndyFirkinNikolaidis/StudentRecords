@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 
 namespace StudentRecords.Tests.Services
 {
+    //Tests to test that the student data service properly reas and writes from json as expected
     [TestClass]
     public class StudentDataServiceTest
     {

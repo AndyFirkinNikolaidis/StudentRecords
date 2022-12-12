@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
+﻿
 using StudentRecords.Shared.Interfaces;
 using StudentRecords.Shared.Models;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace StudentRecords.Shared.Services
 {
-    //Student data service to read write to the json file
+    //Student data mock service to read write to fake collections for testing controllers
     public class MockStudentDataService : IStudentDataService
     {
         List<Student> Students { get; set; }
